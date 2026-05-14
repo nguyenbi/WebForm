@@ -13,19 +13,20 @@
                 <Columns>
                     <asp:TemplateColumn HeaderText="ID">
                         <ItemTemplate>
-                             <%# DataBinder.Eval(Container.DataItem, "ID") %>
+                            <%# DataBinder.Eval(Container.DataItem, "ID") %>
                         </ItemTemplate>
                     </asp:TemplateColumn>
 
                     <asp:TemplateColumn HeaderText="Name">
 
                         <ItemTemplate>
-                           <%# DataBinder.Eval(Container.DataItem, "Name") %>
+                            <%# DataBinder.Eval(Container.DataItem, "Name") %>
                         </ItemTemplate>
 
                         <EditItemTemplate>
                             <asp:TextBox ID="txtName" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Name") %>'></asp:TextBox>
-                            <br /><asp:Label ID="lblErrorName" runat="server" ForeColor="Red"></asp:Label>
+                            <br />
+                            <asp:Label ID="lblErrorName" runat="server" ForeColor="Red"></asp:Label>
                         </EditItemTemplate>
 
                     </asp:TemplateColumn>
@@ -49,6 +50,7 @@
                     <asp:TemplateColumn HeaderText="Action">
                         <ItemTemplate>
                             <asp:LinkButton runat="server" CommandName="Edit" Text="Sua"></asp:LinkButton>
+                             <asp:LinkButton runat="server" CommandName="Delete" Text="Xoa"></asp:LinkButton>
                         </ItemTemplate>
                         <EditItemTemplate>
                             <asp:LinkButton runat="server" CommandName="Update" Text="Luu"></asp:LinkButton>
@@ -58,6 +60,30 @@
 
                 </Columns>
             </asp:DataGrid>
+
+            <div>
+                <table>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <asp:TextBox ID="txtNewName" runat="server"></asp:TextBox>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtNewPhone" runat="server"></asp:TextBox>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtNewAddress" runat="server"></asp:TextBox>
+                        </td>
+                        <td>
+                            <asp:Button ID="btnCreate"
+                                runat="server"
+                                Text="Tao moi" OnClick="btnCreate_Click" />
+                        </td>
+                    </tr>
+                </table>
+
+                <br />
+            </div>
         </div>
     </form>
 </body>
