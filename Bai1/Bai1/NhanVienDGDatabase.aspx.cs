@@ -21,11 +21,7 @@ namespace Bai1
             }
         }
 
-        protected void LoadDataGRNhanVien()
-        {
-            grNhanVien.DataSource = NhanVienTable;
-            grNhanVien.DataBind();
-        }
+
 
         protected void grNhanVien_ItemCommand(object source, DataGridCommandEventArgs e)
         {
@@ -105,6 +101,12 @@ namespace Bai1
             LoadDataGRNhanVien();
         }
 
+        protected void LoadDataGRNhanVien()
+        {
+            grNhanVien.DataSource = NhanVienTable;
+            grNhanVien.DataBind();
+        }
+
         private DataTable NhanVienTable
         {
             get
@@ -114,7 +116,7 @@ namespace Bai1
                     // 
                     SqlConnection con =
                 new SqlConnection(strCon);
-                   
+
                     string sql = "SELECT  ID, Name, Phone, Address FROM NhanVien";
 
                     SqlDataAdapter da =
@@ -145,22 +147,23 @@ namespace Bai1
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            DataTable dt =
-                (DataTable)ViewState["NhanVienTable"];
-
             SqlConnection con =
                 new SqlConnection(strCon);
 
             // Xóa dữ liệu cũ trong DB
             string deleteSql =
-                "DELETE FROM NhanVien";
+                "DELETE FROM NhanVien ";
+
 
             SqlCommand deleteCmd =
                 new SqlCommand(deleteSql, con);
 
+            con.Open();
             deleteCmd.ExecuteNonQuery();
 
             // Insert lại dữ liệu từ DataGrid/ViewState
+            DataTable dt =
+               (DataTable)ViewState["NhanVienTable"];
             foreach (DataRow row in dt.Rows)
             {
                 string insertSql =
@@ -172,30 +175,29 @@ namespace Bai1
               )
               VALUES
               (
-                  @Name,
-                  @Phone,
-                  @Address
+                  @ten,
+                  @dienThoai,
+                  @diaChi
               )";
 
                 SqlCommand insertCmd =
                     new SqlCommand(insertSql, con);
 
                 insertCmd.Parameters.AddWithValue(
-                    "@Name",
+                    "@ten",
                     row["Name"].ToString());
 
                 insertCmd.Parameters.AddWithValue(
-                    "@Phone",
+                    "@dienThoai",
                     row["Phone"].ToString());
 
                 insertCmd.Parameters.AddWithValue(
-                    "@Address",
+                    "@diaChi",
                     row["Address"].ToString());
 
                 insertCmd.ExecuteNonQuery();
             }
 
-            con.Close();
             txtNewName.Text = "";
             txtNewPhone.Text = "";
             txtNewAddress.Text = "";
@@ -211,6 +213,33 @@ namespace Bai1
             txtNewPhone.Text = "";
             txtNewAddress.Text = "";
             LoadDataGRNhanVien();
+        }
+
+        // Duoc goi khi datagrid đỗ dữ liệu ra. Từng dòng sẽ gọi grNhanVien_ItemDataBound
+
+        protected void grNhanVien_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem
+                )
+            {
+              
+            }
+            if(e.Item.ItemType == ListItemType.EditItem)
+            {
+                // Neeus so dien thoai laf 115 thi khong duoc sua so dien thoai
+
+            }
+
+            if(e.Item.ItemType == ListItemType.Header)
+            {
+                // Cho backroud mau xanh
+            }
+
+
+            if (e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                e.Item.BackColor =  System.Drawing.Color.Brown;
+            }
         }
     }
 }

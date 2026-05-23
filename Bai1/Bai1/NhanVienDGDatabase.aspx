@@ -9,7 +9,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:DataGrid ID="grNhanVien" runat="server" AutoGenerateColumns="false" OnItemCommand="grNhanVien_ItemCommand">
+            <asp:DataGrid ID="grNhanVien" runat="server" AutoGenerateColumns="false" OnItemCommand="grNhanVien_ItemCommand"  
+                OnItemDataBound="grNhanVien_ItemDataBound">
                 <Columns>
                     <asp:TemplateColumn HeaderText="ID">
                         <ItemTemplate>
