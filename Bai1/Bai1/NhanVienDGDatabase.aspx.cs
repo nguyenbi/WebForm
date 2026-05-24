@@ -222,23 +222,40 @@ namespace Bai1
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem
                 )
             {
-              
+                // Neu so dien thoai la 113 thi khong duoc hien thi nut xoa
+                DataRowView row = (DataRowView)e.Item.DataItem;
+
+                if (row["Phone"].ToString() == "113")
+                {
+                    LinkButton btnDelete =
+                        (LinkButton)e.Item.FindControl("btnDelete");
+
+                    btnDelete.Visible = false;
+                }
             }
-            if(e.Item.ItemType == ListItemType.EditItem)
+            if (e.Item.ItemType == ListItemType.EditItem)
             {
-                // Neeus so dien thoai laf 115 thi khong duoc sua so dien thoai
+                // Neeus so dien thoai laf 113, 115 thi khong duoc sua so dien thoai
+                DataRowView dtRow = (DataRowView)e.Item.DataItem;
+                if (dtRow["Phone"].ToString() == "113" || dtRow["Phone"].ToString() == "115")
+                {
+                    TextBox dienThoai = (TextBox)e.Item.FindControl("txtPhone");
+                    dienThoai.Enabled = false;
+                }
 
             }
 
-            if(e.Item.ItemType == ListItemType.Header)
+            if (e.Item.ItemType == ListItemType.Header)
             {
                 // Cho backroud mau xanh
+                e.Item.BackColor = System.Drawing.Color.Blue;
+                e.Item.ForeColor = System.Drawing.Color.White;
             }
 
 
             if (e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                e.Item.BackColor =  System.Drawing.Color.Brown;
+                e.Item.BackColor = System.Drawing.Color.Violet;
             }
         }
     }

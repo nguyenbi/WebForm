@@ -51,7 +51,7 @@
                     <asp:TemplateColumn HeaderText="Action">
                         <ItemTemplate>
                             <asp:LinkButton runat="server" CommandName="Edit" Text="Sua"></asp:LinkButton>
-                            <asp:LinkButton runat="server" CommandName="Delete" Text="Xoa"></asp:LinkButton>
+                            <asp:LinkButton runat="server" ID="btnDelete" CommandName="Delete" Text="Xoa"></asp:LinkButton>
                         </ItemTemplate>
                         <EditItemTemplate>
                             <asp:LinkButton runat="server" CommandName="Update" Text="Luu"></asp:LinkButton>
